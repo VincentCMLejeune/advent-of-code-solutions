@@ -6,7 +6,7 @@ class Bingo {
     this.emptyBoards = processed_data.emptyBoards;
   }
 
-  playBingo() {
+  playBingoPartOne() {
     for (let pickedNumber of this.numbers) {
       for (let i = 0; i < this.fullBoards.length; i++) {
         for (let j = 0; j < 5; j++) {
@@ -26,6 +26,65 @@ class Bingo {
         }
       }
     }
+  }
+
+  playBingoPartTwo(fullBoards, markedBoards, lastNumberIndex) {
+    for (let i = lastNumberIndex + 1; i < this.numbers.length; i++) {
+      let pickedNumber = this.numbers[i];
+      for (let j = 0; j < 5; j++) {
+        for (let k = 0; k < 5; k++) {
+          for (let l = 0; l < fullBoards.length; l++) {
+            if (fullBoards[l][j][k] === pickedNumber) {
+              markedBoards[l][j][k] = pickedNumber;
+            }
+          }
+        }
+      }
+      let winningBoardsIndexes = this.checkWinners(markedBoards);
+      if (winningBoardsIndexes.length !== 0) {
+        if (markedBoards.length === 1) {
+          return {
+            lastFullBoard: fullBoards[0],
+            lastMarkedBoard: markedBoards[0],
+            lastPickedNumber: this.numbers[i],
+          };
+        }
+        for (let index of winningBoardsIndexes) {
+          fullBoards.splice(index, 1);
+          markedBoards.splice(index, 1);
+        }
+        return this.playBingoPartTwo(fullBoards, markedBoards, i);
+      }
+    }
+  }
+
+  checkWinners(markedBoards) {
+    let winningBoardsIndexes = [];
+    for (let i = markedBoards.length - 1; i >= 0; i--) {
+      for (let j = 0; j < 5; j++) {
+        if (
+          markedBoards[i][j][0] !== "" &&
+          markedBoards[i][j][1] !== "" &&
+          markedBoards[i][j][2] !== "" &&
+          markedBoards[i][j][3] !== "" &&
+          markedBoards[i][j][4] !== ""
+        ) {
+          winningBoardsIndexes.push(i);
+        }
+      }
+      for (let j = 0; j < 5; j++) {
+        if (
+          markedBoards[i][0][j] !== "" &&
+          markedBoards[i][1][j] !== "" &&
+          markedBoards[i][2][j] !== "" &&
+          markedBoards[i][3][j] !== "" &&
+          markedBoards[i][4][j] !== ""
+        ) {
+          winningBoardsIndexes.push(i);
+        }
+      }
+    }
+    return [...new Set(winningBoardsIndexes)];
   }
 
   checkWinner() {
@@ -68,8 +127,17 @@ class Bingo {
     return sum;
   }
 
+  partTwoScore() {
+    let result = this.playBingoPartTwo(this.fullBoards, this.emptyBoards, -1);
+    let sumUnMarkedNumbers = this.sumUnMarkedNumbers(
+      result.lastFullBoard,
+      result.lastMarkedBoard
+    );
+    return result.lastPickedNumber * sumUnMarkedNumbers;
+  }
+
   partOneScore() {
-    let result = this.playBingo();
+    let result = this.playBingoPartOne();
     let sumUnmarkedNumbers = this.sumUnMarkedNumbers(
       result.winningFullBoard,
       result.winningBoard
