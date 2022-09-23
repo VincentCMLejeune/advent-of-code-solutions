@@ -25,6 +25,55 @@ class Vent {
     return map;
   }
 
+  populateFullMap() {
+    let map = this.createMap();
+    for (let diagram of this.diagrams) {
+      if (diagram.x1 === diagram.x2) {
+        let origin = diagram.x1;
+        let start = Math.min(diagram.y1, diagram.y2);
+        let end = Math.max(diagram.y1, diagram.y2);
+        for (let i = start; i <= end; i++) {
+          map[i][origin]++;
+        }
+      } else if (diagram.y1 === diagram.y2) {
+        let origin = diagram.y1;
+        let start = Math.min(diagram.x1, diagram.x2);
+        let end = Math.max(diagram.x1, diagram.x2);
+        for (let i = start; i <= end; i++) {
+          map[origin][i]++;
+        }
+      } else {
+        if (diagram.x1 > diagram.x2) {
+          if (diagram.y1 > diagram.y2) {
+            for (let i = 0; i <= diagram.x1 - diagram.x2; i++) {
+              map[diagram.y1 - i][diagram.x1 - i]++;
+            }
+          } else {
+            for (let i = 0; i <= diagram.x1 - diagram.x2; i++) {
+              map[diagram.y1 + i][diagram.x1 - i]++;
+            }
+          }
+        } else {
+          if (diagram.y1 > diagram.y2) {
+            for (let i = 0; i <= diagram.x2 - diagram.x1; i++) {
+              map[diagram.y1 - i][diagram.x1 + i]++;
+            }
+          } else {
+            for (let i = 0; i <= diagram.x2 - diagram.x1; i++) {
+              map[diagram.y1 + i][diagram.x1 + i]++;
+            }
+          }
+        }
+      }
+    }
+    return map;
+  }
+
+  partTwo() {
+    let populatedMap = this.populateFullMap();
+    return populatedMap.flat().filter((num) => num > 1).length;
+  }
+
   partOne() {
     let populatedMap = this.populateMap();
     return populatedMap.flat().filter((num) => num > 1).length;
