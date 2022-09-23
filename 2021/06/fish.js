@@ -9,6 +9,12 @@ class Fish {
     return this.sumFish(finalFishMap);
   }
 
+  partTwo() {
+    let fishMap = this.countFish(this.initialFish);
+    let finalFishMap = this.populateFish(fishMap, 256);
+    return this.sumFish(finalFishMap);
+  }
+
   populateFish(fishMap, days) {
     for (let i = 1; i <= days; i++) {
       let tempZero = fishMap[0];
