@@ -3,7 +3,7 @@ class Game {
     this.infos = this.parseInfos(raw_data);
   }
 
-  partOne() {
+  part_one() {
     return true;
   }
 
