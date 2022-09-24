@@ -19,6 +19,21 @@ class Crab {
     return minFuel;
   }
 
+  part_two() {
+    let minIndex = -1;
+    let minFuel = Infinity;
+    for (let i = 0; i < this.crabMapLength; i++) {
+      let fuelUsed = this.crabMap
+        .map((elem) => ((Math.abs(elem - i) + 1) / 2) * Math.abs(elem - i))
+        .reduce((x, y) => x + y, 0);
+      if (fuelUsed < minFuel) {
+        minIndex = i;
+        minFuel = fuelUsed;
+      }
+    }
+    return minFuel;
+  }
+
   parseInfos(raw_data) {
     return raw_data[0].split(",").map(Number);
   }
