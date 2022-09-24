@@ -1,4 +1,4 @@
-class Game {
+class AdventOfCode {
   constructor(raw_data) {
     this.infos = this.parseInfos(raw_data);
   }
@@ -7,7 +7,11 @@ class Game {
     return true;
   }
 
+  part_two() {
+    return true;
+  }
+
   parseInfos(raw_data) {}
 }
 
-module.exports = Game;
+module.exports = AdventOfCode;
