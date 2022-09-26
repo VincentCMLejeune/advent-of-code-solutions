@@ -18,6 +18,19 @@ class AdventOfCode {
     return count;
   }
 
+  part_two() {
+    let fishes = [...this.fishes];
+    for (let days = 1; days < 1000; days++) {
+      fishes = this.incrementAllFishPower(fishes);
+      let obj = this.flashFishes(fishes);
+      fishes = this.uncircleFishes(obj.fishes);
+      if (fishes.every((row) => row.every((fish) => fish === 0))) {
+        return days;
+      }
+    }
+    throw new Error("Fishes did not coordinate after 1000 loops");
+  }
+
   flashFishes(fishes) {
     let somethingFlashed = true;
     let flashCount = 0;
@@ -78,10 +91,6 @@ class AdventOfCode {
 
   incrementAllFishPower(fishes) {
     return fishes.map((row) => row.map((fish) => fish + 1));
-  }
-
-  part_two() {
-    return true;
   }
 
   parseInfos(raw_data) {
