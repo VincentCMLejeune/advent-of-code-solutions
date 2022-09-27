@@ -3,20 +3,15 @@ const path = require("path");
 class AdventOfCode {
   constructor(raw_data) {
     this.infos = this.parseInfos(raw_data);
-    // console.log(this.infos);
   }
 
   part_one() {
-    // console.log(this.infos);
     const paths = this.getPathsFromMap(this.infos);
-    // console.log(paths);
     return paths.length;
   }
 
   getPathsFromMap(map, current = "start", path = []) {
     const paths = [];
-    // console.log(map);
-    // console.log(map["links"][current]);
     for (let link of map[current]) {
       if (link === "end") {
         paths.push([...path, link]);
@@ -36,7 +31,45 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    const paths = this.getPathsFromMapPartTwo(this.infos);
+    return paths.length;
+  }
+
+  getPathsFromMapPartTwo(map, current = "start", path = []) {
+    const paths = [];
+    for (let link of map[current]) {
+      if (link === "end") {
+        paths.push([...path, link]);
+      } else if (this.canGoToPartTwo(link, path)) {
+        paths.push(...this.getPathsFromMapPartTwo(map, link, [...path, link]));
+      }
+    }
+    return paths;
+  }
+
+  canGoToPartTwo(link, path) {
+    const lowerCasePath = path.filter((p) => p === p.toLowerCase());
+    if (link === link.toUpperCase()) {
+      return true;
+    } else if (this.hasNoDouble(lowerCasePath)) {
+      return true;
+    } else if (path.includes(link)) {
+      return false;
+    } else {
+      for (let value of lowerCasePath) {
+        if (lowerCasePath.indexOf(value) !== lowerCasePath.lastIndexOf(value)) {
+          if (link === value) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+  }
+
+  hasNoDouble(arr) {
+    let res = arr.length === [...new Set(arr)].length;
+    return res;
   }
 
   parseInfos(raw_data) {

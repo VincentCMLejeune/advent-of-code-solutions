@@ -9,6 +9,17 @@ const input = fs
 
 const sampleInputs = [
   {
+    input: `start-A
+    start-b
+    A-c
+    A-b
+    b-d
+    A-end
+    b-end`.split("\n").map((elem) => elem.trim()),
+    part_one: 10,
+    part_two: 36,
+  },
+  {
     input: `dc-end
     HN-start
     start-kj
@@ -20,7 +31,7 @@ const sampleInputs = [
     kj-HN
     kj-dc`.split("\n").map((elem) => elem.trim()),
     part_one: 19,
-    part_two: undefined,
+    part_two: 103,
   },
   {
     input: `fs-end
@@ -42,7 +53,7 @@ const sampleInputs = [
     pj-fs
     start-RW`.split("\n").map((elem) => elem.trim()),
     part_one: 226,
-    part_two: undefined,
+    part_two: 3509,
   },
 ];
 
