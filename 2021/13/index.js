@@ -4,21 +4,17 @@ class AdventOfCode {
   }
 
   fold() {
-    // this.printMap(this.infos.map);
-    // console.log(this.infos.folds);
     let map = [...this.infos.map];
     for (let fold of this.infos.folds) {
       if (fold["dir"] === "y") {
         map = this.verticalFold(map, fold["len"]);
       } else if (fold["dir"] === "x") {
-        // this.printMap(map);
         map = this.horizontalFold(map, fold["len"]);
       } else {
         throw new Error("Fold instructions missing");
       }
     }
     this.printMap(map);
-    // return this.countDots(map);
   }
 
   foldOnce() {
@@ -27,13 +23,10 @@ class AdventOfCode {
     if (fold["dir"] === "y") {
       map = this.verticalFold(map, fold["len"]);
     } else if (fold["dir"] === "x") {
-      // this.printMap(map);
       map = this.horizontalFold(map, fold["len"]);
     } else {
       throw new Error("Fold instructions missing");
     }
-
-    // this.printMap(map);
     return this.countDots(map);
   }
 
@@ -48,8 +41,6 @@ class AdventOfCode {
       leftSide.push(row.slice(0, line));
       rightSide.push(row.slice(line + 1));
     }
-    // this.printMap(leftSide);
-    // this.printMap(rightSide);
     for (let i = 0; i < rightSide.length; i++) {
       for (let j = 0; j < rightSide[0].length; j++) {
         if (leftSide[i][line - 1 - j] === "#" || rightSide[i][j] === "#") {
@@ -63,8 +54,6 @@ class AdventOfCode {
   verticalFold(map, line) {
     let upSide = map.slice(0, line);
     let downSide = map.slice(line + 1);
-    // this.printMap(upSide);
-    // this.printMap(downSide);
     for (let i = 0; i < downSide.length; i++) {
       for (let j = 0; j < downSide[0].length; j++) {
         if (upSide[line - 1 - i][j] === "#" || downSide[i][j] === "#") {
