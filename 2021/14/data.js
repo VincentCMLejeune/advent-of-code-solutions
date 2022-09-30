@@ -28,7 +28,7 @@ const sampleInputs = [
     CC -> N
     CN -> C`.split("\n").map((elem) => elem.trim()),
     part_one: 1588,
-    part_two: undefined,
+    part_two: 2188189693529,
   },
 ];
 
