@@ -15,7 +15,16 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    for (let i = 0; i < this.numbers.length - 2; i++) {
+      for (let j = i + 1; j < this.numbers.length - 1; j++) {
+        for (let k = j + 1; k < this.numbers.length; k++) {
+          if (this.numbers[i] + this.numbers[j] + this.numbers[k] === 2020) {
+            return this.numbers[i] * this.numbers[j] * this.numbers[k];
+          }
+        }
+      }
+    }
+    throw new Error("No solution found");
   }
 
   parseInfos(raw_data) {
