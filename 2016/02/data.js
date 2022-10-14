@@ -14,7 +14,7 @@ const sampleInputs = [
     LURDL
     UUUUD`.split("\n").map((elem) => elem.trim()),
     part_one: 1985,
-    part_two: undefined,
+    part_two: '5DB3',
   },
 ];
 
