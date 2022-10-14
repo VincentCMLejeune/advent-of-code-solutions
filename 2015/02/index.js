@@ -16,7 +16,15 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let total = 0;
+    for (let box of this.boxes) {
+      let sortedBox = box.sort((a, b) => a - b);
+      total +=
+        sortedBox[0] * 2 +
+        sortedBox[1] * 2 +
+        sortedBox[0] * sortedBox[1] * sortedBox[2];
+    }
+    return total;
   }
 
   parseInfos(raw_data) {
