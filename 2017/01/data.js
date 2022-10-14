@@ -11,22 +11,18 @@ const sampleInputs = [
   {
     input: `1122`.split("\n").map((elem) => elem.trim()),
     part_one: 3,
-    part_two: undefined,
   },
   {
     input: `1111`.split("\n").map((elem) => elem.trim()),
     part_one: 4,
-    part_two: undefined,
   },
   {
     input: `1234`.split("\n").map((elem) => elem.trim()),
     part_one: 0,
-    part_two: undefined,
   },
   {
     input: `91212129`.split("\n").map((elem) => elem.trim()),
     part_one: 9,
-    part_two: undefined,
   },
 ];
 

@@ -15,7 +15,16 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    const step = this.numbers[0].length / 2;
+    const numbers = this.numbers[0];
+    const len = numbers.length;
+    let total = 0;
+    for (let i = 0; i < numbers.length; i++) {
+      if (numbers[i] === numbers[(i + step) % len]) {
+        total += Number(numbers[i]);
+      }
+    }
+    return total;
   }
 
   parseInfos(raw_data) {
