@@ -13,7 +13,18 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    const verticalData = this.verticalize(this.infos);
+    return verticalData.filter((arr) => this.canTriangle(arr)).length;
+  }
+
+  verticalize(data) {
+    const newData = [];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < data.length; j += 3) {
+        newData.push([data[j][i], data[j + 1][i], data[j + 2][i]]);
+      }
+    }
+    return newData;
   }
 
   parseInfos(raw_data) {

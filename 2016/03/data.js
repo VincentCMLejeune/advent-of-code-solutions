@@ -7,20 +7,6 @@ const input = fs
   .trim()
   .split("\n");
 
-const sampleInputs = [
-  {
-    input: ``.split("\n").map((elem) => elem.trim()),
-    part_one: undefined,
-    part_two: undefined,
-  },
-  {
-    input: ``.split("\n").map((elem) => elem.trim()),
-    part_one: undefined,
-    part_two: undefined,
-  },
-];
-
 module.exports = {
   input,
-  sampleInputs,
 };
