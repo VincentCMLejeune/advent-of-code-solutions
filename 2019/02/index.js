@@ -27,7 +27,39 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    for (let i = 0; i <= 99; i++) {
+      for (let j = 0; j <= 99; j++) {
+        let newComputer = [...this.nums];
+        newComputer = this.changeCustomNumbers(newComputer, i, j);
+        if (this.doesItCompute(newComputer)) {
+          return 100 * i + j;
+        }
+      }
+    }
+    throw new Error("Fuck");
+  }
+
+  changeCustomNumbers(computer, a, b) {
+    computer[1] = a;
+    computer[2] = b;
+    return computer;
+  }
+
+  doesItCompute(computer) {
+    let valueToAdd = 0;
+    for (let i = 0; i < computer.length; i += 4) {
+      if (computer[i] === 99) {
+        return computer[0] === 19690720;
+      } else if (computer[i] === 1) {
+        valueToAdd = computer[computer[i + 1]] + computer[computer[i + 2]];
+      } else if (computer[i] === 2) {
+        valueToAdd = computer[computer[i + 1]] * computer[computer[i + 2]];
+      } else {
+        return false;
+      }
+      computer[computer[i + 3]] = valueToAdd;
+    }
+    return false;
   }
 
   parseInfos(raw_data) {
