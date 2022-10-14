@@ -17,7 +17,15 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let validCount = 0;
+    for (let info of this.infos) {
+      const isFirstValid = info.password[info.first - 1] === info.letter;
+      const isSecondValid = info.password[info.second - 1] === info.letter;
+      if (isFirstValid !== isSecondValid) {
+        validCount++;
+      }
+    }
+    return validCount;
   }
 
   parseInfos(raw_data) {
