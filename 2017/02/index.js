@@ -12,7 +12,24 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let total = 0;
+    this.nums.forEach((line) => {
+      total += this.findDivisors(line);
+    });
+    return total;
+  }
+
+  findDivisors(arr) {
+    const sortedArr = arr.sort((x, y) => y - x);
+    for (let i = 0; i < sortedArr.length - 1; i++) {
+      let firstNum = sortedArr[i];
+      for (let j = i + 1; j < sortedArr.length; j++) {
+        if (firstNum % sortedArr[j] === 0) {
+          return firstNum / sortedArr[j];
+        }
+      }
+    }
+    throw new Error("Didn't find divisors in array :", arr);
   }
 
   parseInfos(raw_data) {
