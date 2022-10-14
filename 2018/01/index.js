@@ -16,7 +16,23 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let total = 0;
+    const frequencies = [0];
+    for (let i = 0; i < 1000; i++) {
+      for (let info of this.infos) {
+        if (info.operator === "+") {
+          total += info.value;
+        } else if (info.operator === "-") {
+          total -= info.value;
+        }
+        if (frequencies.includes(total)) {
+          return total;
+        } else {
+          frequencies.push(total);
+        }
+      }
+    }
+    throw new Error("No double found in 1000 iterations");
   }
 
   parseInfos(raw_data) {

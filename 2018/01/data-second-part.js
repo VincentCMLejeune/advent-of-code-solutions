@@ -10,27 +10,40 @@ const input = fs
 const sampleInputs = [
   {
     input: `+1
-    +1
-    +1`
+    -1`
       .split("\n")
       .map((elem) => elem.trim()),
-    part_one: 3,
+    part_two: 0,
   },
   {
-    input: `+1
-    +1
-    -2`
-      .split("\n")
-      .map((elem) => elem.trim()),
-    part_one: 0,
-  },
-  {
-    input: `-1
+    input: `+3
+    +3
+    +4
     -2
-    -3`
+    -4`
       .split("\n")
       .map((elem) => elem.trim()),
-    part_one: -6,
+    part_two: 10,
+  },
+  {
+    input: `-6
+    +3
+    +8
+    +5
+    -6`
+      .split("\n")
+      .map((elem) => elem.trim()),
+    part_two: 5,
+  },
+  {
+    input: `+7
+    +7
+    -2
+    -7
+    -4`
+      .split("\n")
+      .map((elem) => elem.trim()),
+    part_two: 14,
   },
 ];
 
