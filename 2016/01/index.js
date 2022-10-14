@@ -48,7 +48,96 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    const cityMap = {
+      x: 0,
+      y: 0,
+    };
+    const visitedCoordinates = {};
+    let dir = "N";
+    const compass = {
+      N: {
+        L: "W",
+        R: "E",
+      },
+      E: {
+        L: "N",
+        R: "S",
+      },
+      S: {
+        L: "E",
+        R: "W",
+      },
+      W: {
+        L: "S",
+        R: "N",
+      },
+    };
+    for (let instruction of this.instructions) {
+      dir = compass[dir][instruction.direction];
+      switch (dir) {
+        case "N":
+          for (let i = 1; i <= instruction.distance; i++) {
+            cityMap.y += 1;
+            if (visitedCoordinates[cityMap.x]) {
+              if (visitedCoordinates[cityMap.x][cityMap.y]) {
+                return Math.abs(cityMap.x) + Math.abs(cityMap.y);
+              } else {
+                visitedCoordinates[cityMap.x][cityMap.y] = true;
+              }
+            } else {
+              visitedCoordinates[cityMap.x] = {};
+              visitedCoordinates[cityMap.x][cityMap.y] = true;
+            }
+          }
+          break;
+        case "E":
+          for (let i = 1; i <= instruction.distance; i++) {
+            cityMap.x += 1;
+            if (visitedCoordinates[cityMap.x]) {
+              if (visitedCoordinates[cityMap.x][cityMap.y]) {
+                return Math.abs(cityMap.x) + Math.abs(cityMap.y);
+              } else {
+                visitedCoordinates[cityMap.x][cityMap.y] = true;
+              }
+            } else {
+              visitedCoordinates[cityMap.x] = {};
+              visitedCoordinates[cityMap.x][cityMap.y] = true;
+            }
+          }
+          break;
+        case "S":
+          for (let i = 1; i <= instruction.distance; i++) {
+            cityMap.y -= 1;
+            if (visitedCoordinates[cityMap.x]) {
+              if (visitedCoordinates[cityMap.x][cityMap.y]) {
+                return Math.abs(cityMap.x) + Math.abs(cityMap.y);
+              } else {
+                visitedCoordinates[cityMap.x][cityMap.y] = true;
+              }
+            } else {
+              visitedCoordinates[cityMap.x] = {};
+              visitedCoordinates[cityMap.x][cityMap.y] = true;
+            }
+          }
+          break;
+        case "W":
+          for (let i = 1; i <= instruction.distance; i++) {
+            cityMap.x -= 1;
+            if (visitedCoordinates[cityMap.x]) {
+              if (visitedCoordinates[cityMap.x][cityMap.y]) {
+                return Math.abs(cityMap.x) + Math.abs(cityMap.y);
+              } else {
+                visitedCoordinates[cityMap.x][cityMap.y] = true;
+              }
+            } else {
+              visitedCoordinates[cityMap.x] = {};
+              visitedCoordinates[cityMap.x][cityMap.y] = true;
+            }
+          }
+          break;
+      }
+    }
+    throw new Error("No double coordinates found");
   }
 
   parseInfos(raw_data) {
