@@ -9,14 +9,14 @@ const input = fs
 
 const sampleInputs = [
   {
-    input: `abcdef
-    bababc
-    abbcde
-    abcccd
-    aabcdd
-    abcdee
-    ababab`.split("\n").map((elem) => elem.trim()),
-    part_one: 12,
+    input: `abcde
+    fghij
+    klmno
+    pqrst
+    fguij
+    axcye
+    wvxyz`.split("\n").map((elem) => elem.trim()),
+    part_two: 'fgij',
   },
 ];
 

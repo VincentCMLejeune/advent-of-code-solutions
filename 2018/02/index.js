@@ -36,7 +36,37 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    for (let i = 0; i < this.ids.length - 1; i++) {
+      for (let j = i + 1; j < this.ids.length; j++) {
+        if (this.onlyOneLetterDiff(this.ids[i], this.ids[j])) {
+          return this.getCommonLetters(this.ids[i], this.ids[j]);
+        }
+      }
+    }
+    throw new Error("No solution found");
+  }
+
+  onlyOneLetterDiff(strA, strB) {
+    let diffCount = 0;
+    for (let i = 0; i < strA.length; i++) {
+      if (strA[i] !== strB[i]) {
+        if (diffCount === 1) {
+          return false;
+        }
+        diffCount++;
+      }
+    }
+    return diffCount === 1;
+  }
+
+  getCommonLetters(strA, strB) {
+    let commonLetters = "";
+    for (let i = 0; i < strA.length; i++) {
+      if (strA[i] === strB[i]) {
+        commonLetters += strA[i];
+      }
+    }
+    return commonLetters;
   }
 
   parseInfos(raw_data) {
