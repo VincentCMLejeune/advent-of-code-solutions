@@ -8,7 +8,13 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let pos = 0;
+    for (let i = 0; i < this.infos.length; i++) {
+      pos += this.infos[i] === "(" ? 1 : -1;
+      if (pos < 0) {
+        return i + 1;
+      }
+    }
   }
 
   parseInfos(raw_data) {
