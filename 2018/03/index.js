@@ -20,7 +20,32 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let fabric = this.drawFabric();
+    for (let line of this.infos) {
+      for (let i = line.start[0]; i < line.start[0] + line.range[0]; i++) {
+        for (let j = line.start[1]; j < line.start[1] + line.range[1]; j++) {
+          fabric[i][j] += 1;
+        }
+      }
+    }
+    for (let line of this.infos) {
+      let res = this.isFabricAlone(line, fabric);
+      if (res) {
+        return res;
+      }
+    }
+    throw new Error("Found no solution");
+  }
+
+  isFabricAlone(line, fabric) {
+    for (let i = line.start[0]; i < line.start[0] + line.range[0]; i++) {
+      for (let j = line.start[1]; j < line.start[1] + line.range[1]; j++) {
+        if (fabric[i][j] > 1) {
+          return false;
+        }
+      }
+    }
+    return line.id;
   }
 
   drawFabric() {

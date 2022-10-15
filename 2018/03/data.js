@@ -13,7 +13,6 @@ const sampleInputs = [
     #2 @ 3,1: 4x4
     #3 @ 5,5: 2x2`.split("\n").map((elem) => elem.trim()),
     part_one: 4,
-    part_two: undefined,
   },
 ];
 
