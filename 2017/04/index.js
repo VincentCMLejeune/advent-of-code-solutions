@@ -16,7 +16,14 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let noDuplicatesCount = 0;
+    const sortedPasswords = this.infos.map((line) =>
+      line.map((pass) => pass.split("").sort().join(""))
+    );
+    sortedPasswords.forEach((line) => {
+      noDuplicatesCount += this.haveNoDuplicates(line);
+    });
+    return noDuplicatesCount;
   }
 
   parseInfos(raw_data) {
