@@ -17,7 +17,14 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    for (let i = 0; i < 10000000; i++) {
+      let curStr = this.str + i;
+      let hash = MD5(curStr).substring(0, 6);
+      if (hash === "000000") {
+        return i;
+      }
+    }
+    throw new Error("Found no solution after 10 million iterations");
   }
 
   parseInfos(raw_data) {

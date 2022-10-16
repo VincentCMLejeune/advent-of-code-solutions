@@ -9,12 +9,10 @@ const sampleInputs = [
   {
     input: `abcdef`,
     part_one: 609043,
-    part_two: undefined,
   },
   {
     input: `pqrstuv`,
     part_one: 1048970,
-    part_two: undefined,
   },
 ];
 
