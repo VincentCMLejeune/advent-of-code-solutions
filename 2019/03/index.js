@@ -100,7 +100,126 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    this.draw_first_line_with_dist();
+    let minDist = Infinity;
+    const secondLine = this.infos[1];
+    const linePos = {
+      x: 0,
+      y: 0,
+    };
+    let steps = 0;
+    for (let line of secondLine) {
+      switch (line.direction) {
+        case "U":
+          for (let i = 1; i <= line.distance; i++) {
+            steps++;
+            linePos.y++;
+            minDist = this.doesItCrossesFirstLineWithDist(
+              minDist,
+              linePos,
+              steps
+            );
+          }
+          break;
+        case "D":
+          for (let i = 1; i <= line.distance; i++) {
+            steps++;
+            linePos.y--;
+            minDist = this.doesItCrossesFirstLineWithDist(
+              minDist,
+              linePos,
+              steps
+            );
+          }
+          break;
+        case "L":
+          for (let i = 1; i <= line.distance; i++) {
+            steps++;
+            linePos.x--;
+            minDist = this.doesItCrossesFirstLineWithDist(
+              minDist,
+              linePos,
+              steps
+            );
+          }
+          break;
+        case "R":
+          for (let i = 1; i <= line.distance; i++) {
+            steps++;
+            linePos.x++;
+            minDist = this.doesItCrossesFirstLineWithDist(
+              minDist,
+              linePos,
+              steps
+            );
+          }
+          break;
+      }
+    }
+    return minDist;
+  }
+
+  doesItCrossesFirstLineWithDist(minDist, linePos, steps) {
+    if (this.firstLineMapWithDist[linePos.y]) {
+      let distFirst = this.firstLineMapWithDist[linePos.y][linePos.x];
+      if (distFirst) {
+        return Math.min(minDist, distFirst + steps);
+      }
+    }
+    return minDist;
+  }
+
+  draw_first_line_with_dist() {
+    let lineMap = {
+      0: {
+        0: true,
+      },
+    };
+    const linePos = {
+      x: 0,
+      y: 0,
+    };
+    let steps = 0;
+    const firstLine = this.infos[0];
+    for (let line of firstLine) {
+      switch (line.direction) {
+        case "U":
+          for (let i = 1; i <= line.distance; i++) {
+            steps++;
+            linePos.y++;
+            lineMap = this.addStepsToMap(linePos, lineMap, steps);
+          }
+          break;
+        case "D":
+          for (let i = 1; i <= line.distance; i++) {
+            steps++;
+            linePos.y--;
+            lineMap = this.addStepsToMap(linePos, lineMap, steps);
+          }
+          break;
+        case "L":
+          for (let i = 1; i <= line.distance; i++) {
+            steps++;
+            linePos.x--;
+            lineMap = this.addStepsToMap(linePos, lineMap, steps);
+          }
+          break;
+        case "R":
+          for (let i = 1; i <= line.distance; i++) {
+            steps++;
+            linePos.x++;
+            lineMap = this.addStepsToMap(linePos, lineMap, steps);
+          }
+          break;
+      }
+    }
+    this.firstLineMapWithDist = lineMap;
+  }
+
+  addStepsToMap(linePos, lineMap, steps) {
+    lineMap[linePos.y] = lineMap[linePos.y] || {};
+    lineMap[linePos.y][linePos.x] = steps;
+    return lineMap;
   }
 
   parseInfos(raw_data) {

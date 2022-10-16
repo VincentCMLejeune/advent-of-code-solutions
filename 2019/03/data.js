@@ -14,7 +14,7 @@ const sampleInputs = [
       .split("\n")
       .map((elem) => elem.trim()),
     part_one: 6,
-    part_two: undefined,
+    part_two: 30,
   },
   {
     input: `R75,D30,R83,U83,L12,D49,R71,U7,L72
@@ -22,7 +22,7 @@ const sampleInputs = [
       .split("\n")
       .map((elem) => elem.trim()),
     part_one: 159,
-    part_two: undefined,
+    part_two: 610,
   },
   {
     input: `R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51
@@ -30,7 +30,7 @@ const sampleInputs = [
       .split("\n")
       .map((elem) => elem.trim()),
     part_one: 135,
-    part_two: undefined,
+    part_two: 410,
   },
 ];
 
