@@ -16,7 +16,6 @@ const sampleInputs = [
       .split("\n")
       .map((elem) => elem.trim()),
     part_one: 1514,
-    part_two: undefined,
   },
 ];
 

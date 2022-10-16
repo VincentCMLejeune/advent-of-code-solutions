@@ -28,7 +28,27 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    for (let line of this.infos) {
+      let rotatedLine = this.rotate(line.name, Number(line.id));
+      if (rotatedLine === "northpoleobjectstorage") {
+        return line.id;
+      }
+    }
+  }
+
+  rotate(str, n) {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    let newStr = "";
+    for (let letter of str) {
+      if (letter === "-") {
+        newStr += "-";
+      } else {
+        let index = alphabet.indexOf(letter);
+        index = (index + n) % 26;
+        newStr += alphabet[index];
+      }
+    }
+    return newStr;
   }
 
   parseInfos(raw_data) {
