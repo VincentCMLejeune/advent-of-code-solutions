@@ -3,22 +3,8 @@ const fs = require("fs");
 
 const input = fs
   .readFileSync(path.join(__dirname, "input.txt"), "utf8")
-  .toString()
-
-const sampleInputs = [
-  {
-    input: ``.split("\n").map((elem) => elem.trim()),
-    part_one: undefined,
-    part_two: undefined,
-  },
-  {
-    input: ``.split("\n").map((elem) => elem.trim()),
-    part_one: undefined,
-    part_two: undefined,
-  },
-];
+  .toString();
 
 module.exports = {
   input,
-  sampleInputs,
 };

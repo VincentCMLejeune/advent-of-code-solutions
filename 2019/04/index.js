@@ -36,7 +36,27 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let count = 0;
+    for (let num = this.range.start; num < this.range.end; num++) {
+      if (this.hasOnlyTwoAdjacentDigits(num)) {
+        if (this.hasNoDecreasingDigit(num)) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  hasOnlyTwoAdjacentDigits(num) {
+    let str = "*" + String(num) + "*";
+    for (let i = 1; i < str.length - 2; i++) {
+      if (str[i] === str[i + 1]) {
+        if (str[i] !== str[i - 1] && str[i] !== str[i + 2]) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   parseInfos(raw_data) {
