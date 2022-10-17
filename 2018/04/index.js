@@ -1,14 +1,16 @@
+// NOT MANAGING WHETHER A GUARD SLEEPS A WHOLE DAY, WHICH MAKES A MINUTE MORE FREQUENT
+
 class AdventOfCode {
   constructor(raw_data) {
     this.infos = this.parseInfos(raw_data);
   }
 
   part_one() {
-    let [shifts, sleeps] = this.getShiftsAndSleeps();
+    let sleeps = this.getSleeps();
     let laziest = this.getSleepiestAgent(sleeps);
     let laziestSleeps = sleeps.filter((sleep) => sleep.guard == laziest);
     let sleepiestMinute = this.getSleepiestMinute(laziestSleeps);
-    return laziest * sleepiestMinute
+    return laziest * sleepiestMinute;
   }
 
   getSleepiestMinute(sleeps) {
@@ -46,45 +48,27 @@ class AdventOfCode {
     )[0];
   }
 
-  // I made a dict of shifts because I haven't carefully read part 1, hope it will be useful in part 2
-  getShiftsAndSleeps() {
-    const shifts = [];
+  getSleeps() {
     const sleeps = [];
-    let curShift = {};
     let curSleep = {};
     let curGuard = "";
     for (let line of this.infos) {
       if (line.action.includes("Guard")) {
-        curShift = this.getEndOfAction(curShift, line);
-        shifts.push(curShift);
         curGuard = Number(line.action.split(" ")[1].substring(1));
-        curShift = {
-          guard: curGuard,
-          startMinute: line.minute,
-          startDay: line.day,
-        };
       } else if (line.action === "falls asleep") {
-        curShift = this.getEndOfAction(curShift, line);
         curSleep = {
           guard: curGuard,
           startMinute: line.minute,
           startDay: line.day,
         };
-        shifts.push(curShift);
       } else if (line.action === "wakes up") {
         curSleep = this.getEndOfAction(curSleep, line);
         sleeps.push(curSleep);
-        curShift = {
-          guard: curGuard,
-          startMinute: line.minute,
-          startDay: line.day,
-        };
       } else {
         throw new Error("Did not recognise action : " + line.action);
       }
     }
-    shifts.shift();
-    return [shifts, sleeps];
+    return sleeps;
   }
 
   getEndOfAction(action, line) {
@@ -113,7 +97,58 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let sleeps = this.getSleeps();
+    let sleepAgentMap = this.sortSleepsByAgent(sleeps);
+    let sleepiestMinuteByAgent = Object.keys(sleepAgentMap).map((agent) => {
+      let [sleepiestMinute, frequency] = this.getSleepiestMinuteAndFrequency(
+        sleepAgentMap[agent]
+      );
+      return {
+        agent,
+        frequency,
+        sleepiestMinute,
+      };
+    });
+    let sleepiestMinute = sleepiestMinuteByAgent.sort(
+      (minuteA, minuteB) => minuteB.frequency - minuteA.frequency
+    )[0];
+    return (
+      Number(sleepiestMinute.agent) * Number(sleepiestMinute.sleepiestMinute)
+    );
+  }
+
+  getSleepiestMinuteAndFrequency(sleeps) {
+    let sleepMinutes = {};
+    sleeps.forEach((sleep) => {
+      if (sleep.startDay === sleep.endDay) {
+        for (let i = sleep.startMinute; i <= sleep.endMinute; i++) {
+          sleepMinutes[i] = sleepMinutes[i] + 1 || 1;
+        }
+      } else {
+        for (let i = sleep.startMinute; i < 1440; i++) {
+          sleepMinutes[i] = sleepMinutes[i] + 1 || 1;
+        }
+        for (let i = 0; i <= sleep.endMinute; i++) {
+          sleepMinutes[i] = sleepMinutes[i] + 1 || 1;
+        }
+      }
+    });
+    let sleepiestMinute = Object.keys(sleepMinutes).sort(
+      (minuteA, minuteB) => sleepMinutes[minuteB] - sleepMinutes[minuteA]
+    )[0];
+    return [sleepiestMinute, sleepMinutes[sleepiestMinute]];
+  }
+
+  sortSleepsByAgent(sleeps) {
+    const sleepAgentMap = {};
+    sleeps.forEach((sleep) => {
+      if (sleepAgentMap[sleep.guard]) {
+        sleepAgentMap[sleep.guard].push(sleep);
+      } else {
+        sleepAgentMap[sleep.guard] = [sleep];
+      }
+    });
+    return sleepAgentMap;
   }
 
   parseInfos(raw_data) {
