@@ -2,12 +2,14 @@ const assert = require("assert");
 const { input, sampleInputs } = require("./data");
 const AdventOfCode = require("./index");
 
+let testNum = 1;
 for (let i = 0; i < sampleInputs.length; i++) {
   if (sampleInputs[i].part_one !== undefined) {
     let sample_instance = new AdventOfCode(sampleInputs[i].input);
     let sample_part_one = sample_instance.part_one();
     assert.strictEqual(sample_part_one, sampleInputs[i].part_one);
-    console.log(`Test ${i + 1} successful`);
+    console.log(`Test ${testNum} successful`);
+    testNum++;
   }
 }
 
