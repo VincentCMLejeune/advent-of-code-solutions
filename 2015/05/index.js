@@ -49,7 +49,34 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let niceCount = 0;
+    this.infos.forEach((str) => {
+      if (this.hasDoubleString(str)) {
+        if (this.hasDoubleWithOneBetween(str)) {
+          niceCount++;
+        }
+      }
+    });
+    return niceCount;
+  }
+
+  hasDoubleWithOneBetween(str) {
+    for (let i = 0; i < str.length - 2; i++) {
+      if (str[i] === str[i + 2]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  hasDoubleString(str) {
+    for (let i = 0; i < str.length - 3; i++) {
+      let sub = str.substring(i, i + 2);
+      if (str.substring(i + 2).includes(sub)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   parseInfos(raw_data) {

@@ -18,9 +18,12 @@ const sampleInputs = [
     part_two: undefined,
   },
   {
-    input: ``.split("\n").map((elem) => elem.trim()),
+    input: `qjhvhtzxzqqjkmpb
+    xxyxx
+    uurcxstgmygtbstg
+    ieodomkazucvgmuy`.split("\n").map((elem) => elem.trim()),
     part_one: undefined,
-    part_two: undefined,
+    part_two: 2,
   },
 ];
 
