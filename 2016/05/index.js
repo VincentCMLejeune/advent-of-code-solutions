@@ -21,7 +21,20 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let pass = [false, false, false, false, false, false, false, false];
+    for (let i = 0; i < 100000000; i++) {
+      let curStr = this.id + i;
+      let hash = MD5(curStr).substring(0, 7);
+      if (hash.substring(0, 5) === "00000") {
+        if (hash[5] < 8 && pass[hash[5]] === false) {
+          pass[hash[5]] = hash[6];
+          if (pass.every((char) => char !== false)) {
+            return pass.join("");
+          }
+        }
+      }
+    }
+    throw new Error("Iterated up to 100 million");
   }
 
   parseInfos(raw_data) {

@@ -9,12 +9,7 @@ const sampleInputs = [
   {
     input: `abc`,
     part_one: "18f47a30",
-    part_two: undefined,
-  },
-  {
-    input: ``,
-    part_one: undefined,
-    part_two: undefined,
+    part_two: "05ace8e3",
   },
 ];
 
