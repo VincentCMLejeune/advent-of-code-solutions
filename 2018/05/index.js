@@ -4,7 +4,11 @@ class AdventOfCode {
   }
 
   part_one() {
-    let arr = this.characters.split("");
+    return this.polymerize(this.characters);
+  }
+
+  polymerize(str) {
+    let arr = str.split("");
     let idx = 0;
 
     while (idx < arr.length - 1) {
@@ -27,7 +31,15 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    let fullArr = this.characters.split("");
+    let min_length = Infinity;
+    for (let char of alphabet) {
+      let filteredArr = fullArr.filter((elem) => elem.toLowerCase() !== char);
+      let filteredArrLength = this.polymerize(filteredArr.join(""));
+      min_length = Math.min(min_length, filteredArrLength);
+    }
+    return min_length;
   }
 
   parseInfos(raw_data) {
