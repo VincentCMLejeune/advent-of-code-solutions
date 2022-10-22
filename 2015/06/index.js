@@ -48,7 +48,46 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    for (let line of this.instructions) {
+      switch (line.action) {
+        case "on":
+          this.turnOnFixed(line.origin, line.destination);
+          break;
+        case "off":
+          this.turnOffFixed(line.origin, line.destination);
+          break;
+        case "toggle":
+          this.toggleFixed(line.origin, line.destination);
+          break;
+        default:
+          throw new Error("Unknown action");
+      }
+    }
+    return this.field.flat().reduce((a,b) => a + b, 0);
+  }
+
+  turnOffFixed(origin, destination) {
+    for (let i = origin.x; i <= destination.x; i++) {
+      for (let j = origin.y; j <= destination.y; j++) {
+        this.field[i][j] = Math.max(0, this.field[i][j] - 1);
+      }
+    }
+  }
+
+  turnOnFixed(origin, destination) {
+    for (let i = origin.x; i <= destination.x; i++) {
+      for (let j = origin.y; j <= destination.y; j++) {
+        this.field[i][j]++;
+      }
+    }
+  }
+
+  toggleFixed(origin, destination) {
+    for (let i = origin.x; i <= destination.x; i++) {
+      for (let j = origin.y; j <= destination.y; j++) {
+        this.field[i][j] += 2;
+      }
+    }
   }
 
   drawField() {
