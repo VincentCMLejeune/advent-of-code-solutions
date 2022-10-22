@@ -9,7 +9,7 @@ const sampleInputs = [
   {
     input: "0 2 7 0",
     part_one: 5,
-    part_two: undefined,
+    part_two: 4,
   },
 ];
 

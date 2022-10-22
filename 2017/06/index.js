@@ -36,7 +36,29 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let iterations = 0;
+    const previousStates = [];
+    const previousStatesDate = {};
+    const arrLength = this.blocks.length;
+    let currentState = this.blocks.map(String).join("");
+    previousStatesDate[currentState] = iterations;
+    do {
+      previousStates.push(currentState);
+      iterations++;
+      let idx = this.findMaxIndex();
+      let range = this.blocks[idx];
+      this.blocks[idx] = 0;
+      for (let val = 1; val <= range; val++) {
+        let curIdx = (idx + val) % arrLength;
+        this.blocks[curIdx]++;
+      }
+      currentState = this.blocks.map(String).join("");
+      if (previousStates.indexOf(currentState) !== -1) {
+        break
+      }
+      previousStatesDate[currentState] = iterations;
+    } while (previousStates.indexOf(currentState) === -1);
+    return iterations - previousStatesDate[currentState];
   }
 
   parseInfos(raw_data) {
