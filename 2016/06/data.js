@@ -28,7 +28,7 @@ const sampleInputs = [
       .split("\n")
       .map((elem) => elem.trim()),
     part_one: "easter",
-    part_two: undefined,
+    part_two: "advent",
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),
