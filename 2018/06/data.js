@@ -14,14 +14,11 @@ const sampleInputs = [
     8, 3
     3, 4
     5, 5
-    8, 9`.split("\n").map((elem) => elem.trim()),
+    8, 9`
+      .split("\n")
+      .map((elem) => elem.trim()),
     part_one: 17,
-    part_two: undefined,
-  },
-  {
-    input: ``.split("\n").map((elem) => elem.trim()),
-    part_one: undefined,
-    part_two: undefined,
+    part_two: 16,
   },
 ];
 

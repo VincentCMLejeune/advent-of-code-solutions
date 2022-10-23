@@ -6,12 +6,8 @@ class AdventOfCode {
   }
 
   part_one() {
-    // console.log(this.infos);
-    // console.log(this.ranges);
-    // console.log(this.numbersMap);
     for (let i = 0; i < this.ranges.x; i++) {
       for (let j = 0; j < this.ranges.y; j++) {
-        // console.log(this.numbersMap[i][j])
         if (this.numbersMap[i][j] !== ".") {
           continue;
         } else {
@@ -20,17 +16,11 @@ class AdventOfCode {
       }
     }
 
-    // for (let line of this.numbersMap) {
-    //   console.log(line.join(""));
-    // }
-
     const possibleNumbers = this.eliminateBorderingNumbers();
-    // console.log(possibleNumbers);
     let maxArea = -Infinity;
     for (let number of possibleNumbers) {
       maxArea = Math.max(maxArea, this.countNumbers(number));
     }
-    console.log(maxArea);
     return maxArea;
   }
 
@@ -49,8 +39,7 @@ class AdventOfCode {
       borderingNumbers.push(this.numbersMap[0][j]);
       borderingNumbers.push(this.numbersMap[this.ranges.x - 1][j]);
     }
-    borderingNumbers = [...new Set(borderingNumbers)]
-    // console.log(borderingNumbers);
+    borderingNumbers = [...new Set(borderingNumbers)];
     const remainingNumbers = [];
     for (let info of this.infos) {
       let curKey = info.key;
@@ -66,9 +55,7 @@ class AdventOfCode {
     let closestNumber = ".";
     let draw = false;
     for (let info of this.infos) {
-      // console.log(info);
       let curDist = Math.abs(i - info.value[0]) + Math.abs(j - info.value[1]);
-      // console.log(curDist);
       if (curDist === minDist) {
         draw = true;
       } else if (curDist < minDist) {
@@ -77,10 +64,6 @@ class AdventOfCode {
         closestNumber = info.key;
       }
     }
-
-    // console.log(
-    //   `Coordinates ${i}/${j}, closest number ${closestNumber} at distance ${minDist}`
-    // );
     return draw ? "." : closestNumber;
   }
 
@@ -109,8 +92,25 @@ class AdventOfCode {
     return { x: maxX + 1, y: maxY + 1 };
   }
 
-  part_two() {
-    return true;
+  part_two(maxDist) {
+    let count = 0;
+    for (let i = 0; i < this.ranges.x; i++) {
+      for (let j = 0; j < this.ranges.y; j++) {
+        if (this.getDist(i, j) < maxDist) {
+          this.numbersMap[i][j] = "#";
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+
+  getDist(i, j) {
+    let totalDist = 0;
+    for (let line of this.infos) {
+      totalDist += Math.abs(i - line.value[0]) + Math.abs(j - line.value[1]);
+    }
+    return totalDist;
   }
 
   parseInfos(raw_data) {
