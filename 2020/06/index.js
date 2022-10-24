@@ -4,7 +4,6 @@ class AdventOfCode {
   }
 
   part_one() {
-    // console.log(this.infos);
     let count = 0;
     for (let line of this.infos) {
       count += [...new Set(line.join("").split(""))].length;
@@ -13,7 +12,16 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let count = 0;
+    let alphabet = "abcdefghijklmnopqrstuvwxyz".split('')
+    for (let line of this.infos) {
+      for (let char of alphabet) {
+        if (line.every(word => word.includes(char))) {
+          count++
+        }
+      }
+    }
+    return count;
   }
 
   parseInfos(raw_data) {
