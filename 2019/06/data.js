@@ -24,9 +24,21 @@ const sampleInputs = [
     part_two: undefined,
   },
   {
-    input: ``.split("\n").map((elem) => elem.trim()),
+    input: `COM)B
+    B)C
+    C)D
+    D)E
+    E)F
+    B)G
+    G)H
+    D)I
+    E)J
+    J)K
+    K)L
+    K)YOU
+    I)SAN`.split("\n").map((elem) => elem.trim()),
     part_one: undefined,
-    part_two: undefined,
+    part_two: 4,
   },
 ];
 

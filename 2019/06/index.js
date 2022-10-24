@@ -4,7 +4,6 @@ class AdventOfCode {
   }
 
   part_one() {
-    // console.log(this.orbitMap);
     let orbitsCount = 0;
     for (let planet of Object.keys(this.orbitMap)) {
       orbitsCount += this.countOrbits(planet);
@@ -19,7 +18,23 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    const sanMap = this.getMapToCOM("SAN");
+    const youMap = this.getMapToCOM("YOU");
+    sanMap.shift();
+    youMap.shift();
+    sanMap.reverse();
+    youMap.reverse();
+    while (youMap[0] === sanMap[0]) {
+      youMap.shift();
+      sanMap.shift();
+    }
+    return youMap.length + sanMap.length;
+  }
+
+  getMapToCOM(satellite, curMap = []) {
+    curMap.push(satellite);
+    let planet = this.orbitMap[satellite];
+    return planet === "COM" ? curMap : this.getMapToCOM(planet, curMap);
   }
 
   parseInfos(raw_data) {
