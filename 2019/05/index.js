@@ -1,78 +1,100 @@
 class AdventOfCode {
   constructor(raw_data) {
     this.nums = this.parseInfos(raw_data);
+    this.input = 1;
   }
 
   part_one() {
-    const computer = [...this.nums];
-    // console.log(computer.length)
-    // console.log(computer[225]);
-    let input = 1;
     let idx = 0;
-    while (computer[idx] !== 99) {
-      const { op, modes } = this.getParameters(computer[idx]);
+    while (true) {
+      const { op, modes } = this.getParameters(this.nums[idx]);
+      console.log(op, modes);
       if (op === 1) {
-        console.log([
-          computer[idx],
-          computer[idx + 1],
-          computer[idx + 2],
-          computer[idx + 3],
-        ]);
-        const a =
-          modes[0] === "0" ? computer[computer[idx + 1]] : computer[idx + 1];
-        const b =
-          modes[1] === "0" ? computer[computer[idx + 2]] : computer[idx + 2];
-        const c = computer[idx + 3];
-        console.log(`Adding ${a} and ${b} and storing at ${c}`);
-        computer[c] = a + b;
-        console.log(computer[c]);
+        this.add(idx, modes);
         idx += 4;
       } else if (op === 2) {
-        console.log([
-          computer[idx],
-          computer[idx + 1],
-          computer[idx + 2],
-          computer[idx + 3],
-        ]);
-        const a =
-          modes[0] === "0" ? computer[computer[idx + 1]] : computer[idx + 1];
-        const b =
-          modes[1] === "0" ? computer[computer[idx + 2]] : computer[idx + 2];
-        const c = computer[idx + 3];
-        console.log(`Multiplying ${a} and ${b} and storing at ${c}`);
-        computer[c] = a * b;
+        this.multiply(idx, modes);
         idx += 4;
       } else if (op === 3) {
-        console.log([computer[idx], computer[idx + 1]]);
-        const a = computer[idx + 1];
-        console.log(`Storing input ${input} at ${a}`);
-        computer[a] = input;
+        this.storeInput(idx, modes);
         idx += 2;
       } else if (op === 4) {
-        console.log([computer[idx], computer[idx + 1]]);
-        const a = computer[idx + 1];
-        console.log(`Outputting ${a}`);
-        input = a;
+        this.updateInput(idx, modes);
         idx += 2;
+      } else if (op === 99) {
+        return this.nums[idx + 1];
       } else {
         throw new Error(`Unknown op ${op}`);
       }
     }
-    return computer[idx + 1];
+  }
+
+  add(idx, modes) {
+    console.log([
+      this.nums[idx],
+      this.nums[idx + 1],
+      this.nums[idx + 2],
+      this.nums[idx + 3],
+    ]);
+    const a =
+      modes[0] === "position"
+        ? this.nums[this.nums[idx + 1]]
+        : this.nums[idx + 1];
+    const b =
+      modes[1] === "position"
+        ? this.nums[this.nums[idx + 2]]
+        : this.nums[idx + 2];
+    const c = this.nums[idx + 3];
+    console.log(`Adding ${a} and ${b} and storing at ${c}`);
+    this.nums[c] = a + b;
+    console.log(this.nums[c]);
+  }
+
+  multiply(idx, modes) {
+    console.log([
+      this.nums[idx],
+      this.nums[idx + 1],
+      this.nums[idx + 2],
+      this.nums[idx + 3],
+    ]);
+    const a =
+      modes[0] === "position"
+        ? this.nums[this.nums[idx + 1]]
+        : this.nums[idx + 1];
+    const b =
+      modes[1] === "position"
+        ? this.nums[this.nums[idx + 2]]
+        : this.nums[idx + 2];
+    const c = this.nums[idx + 3];
+    console.log(`Multiplying ${a} and ${b} and storing at ${c}`);
+    this.nums[c] = a * b;
+  }
+
+  storeInput(idx, modes) {
+    console.log([this.nums[idx], this.nums[idx + 1]]);
+    const a = this.nums[idx + 1];
+    console.log(`Storing input ${this.input} at ${a}`);
+    this.nums[a] = this.input;
+  }
+
+  updateInput(idx, modes) {
+    console.log([this.nums[idx], this.nums[idx + 1]]);
+    const a = this.nums[idx + 1];
+    console.log(`Outputting ${a}`);
+    this.input = a;
   }
 
   getParameters(num) {
     const str = String(num);
     const op = Number(str.slice(-2));
-    let modes = str.slice(0, -2).split("").reverse();
-    while (modes.length < 3) {
-      modes.push("0");
+    let modesNum = str.slice(0, -2).split("").reverse();
+    while (modesNum.length < 3) {
+      modesNum.push("0");
     }
+    const modes = modesNum.map((mode) =>
+      mode === "0" ? "position" : "immediate"
+    );
     return { op, modes };
-  }
-
-  part_two() {
-    return true;
   }
 
   parseInfos(raw_data) {

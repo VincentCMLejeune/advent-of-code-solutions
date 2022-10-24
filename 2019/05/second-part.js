@@ -1,6 +1,6 @@
 const assert = require("assert");
 const { input, sampleInputs } = require("./data");
-const AdventOfCode = require("./index");
+const AdventOfCode = require("./index_part_two");
 
 let testNum = 1;
 for (let i = 0; i < sampleInputs.length; i++) {
