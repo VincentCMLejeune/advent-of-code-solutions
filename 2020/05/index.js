@@ -6,13 +6,10 @@ class AdventOfCode {
   part_one() {
     const lines = [];
     for (let info of this.infos) {
-      // console.log(info);
       const row = this.getRow(info.slice(0, 7));
       let line = this.getLine(info.slice(7));
       lines.push(row * 8 + line);
-      // lines.push(row);
     }
-    // console.log(lines);
     return Math.max(...lines);
   }
 
@@ -26,7 +23,6 @@ class AdventOfCode {
       } else if (arr[i] === "F") {
         max -= val;
       }
-      // console.log(arr[i], min, max);
     }
     return min;
   }
@@ -41,13 +37,22 @@ class AdventOfCode {
       } else if (arr[i] === "L") {
         max -= val;
       }
-      // console.log(arr[i], min, max);
     }
     return min;
   }
 
   part_two() {
-    return true;
+    const lines = [];
+    for (let info of this.infos) {
+      const row = this.getRow(info.slice(0, 7));
+      let line = this.getLine(info.slice(7));
+      lines.push(row * 8 + line);
+    }
+    for (let i = 13; i <= 880; i++) {
+      if (lines.indexOf(i) === -1) {
+        return i;
+      }
+    }
   }
 
   parseInfos(raw_data) {
