@@ -40,7 +40,39 @@ class AdventOfCode {
   }
 
   part_two(a) {
-    return "meow"
+    let allInfos = [...this.infos];
+    this.values['b'] = a;
+    while (allInfos.length !== 0) {
+      for (let i = allInfos.length - 1; i >= 0; i--) {
+        let info = allInfos[i];
+        let processedValues = this.processValues(info.values);
+        if (processedValues === null) continue;
+        switch (info.op) {
+          case "IS":
+            this.values[info.target] = processedValues[0];
+            break;
+          case "AND":
+            this.values[info.target] = this.andOperator(processedValues);
+            break;
+          case "OR":
+            this.values[info.target] = this.orOperator(processedValues);
+            break;
+          case "LSHIFT":
+            this.values[info.target] = this.lshiftOperator(processedValues);
+            break;
+          case "RSHIFT":
+            this.values[info.target] = this.rshiftOperator(processedValues);
+            break;
+          case "NOT":
+            this.values[info.target] = this.notOperator(processedValues);
+            break;
+          default:
+            throw new Error(`Did not recognise instructions line ${info}`);
+        }
+        allInfos.splice(i, 1);
+      }
+    }
+    return this.values.a ? this.values.a : true;
   }
 
   processValues(values) {
