@@ -23,7 +23,7 @@ const sampleInputs = [
     gyxo (61)
     cntj (57)`.split("\n").map((elem) => elem.trim()),
     part_one: 'tknk',
-    part_two: undefined,
+    part_two: 60,
   },
 ];
 
