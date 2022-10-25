@@ -34,7 +34,44 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let validCount = 0;
+    for (let line of this.infos) {
+      validCount += this.validateLinePartTwo(line);
+    }
+    return validCount;
+  }
+
+  validateLinePartTwo(line) {
+    const insideStr = [];
+    const outsideStr = [];
+    let isInside = false;
+    for (let i = 0; i < line.length - 2; i++) {
+      if (line[i] === "[") {
+        isInside = true;
+      } else if (line[i] === "]") {
+        isInside = false;
+      } else {
+        if (
+          line[i] === line[i + 2] &&
+          line[i] !== line[i + 1] &&
+          line[i + 1] !== "]" &&
+          line[i + 1] !== "["
+        ) {
+          if (isInside) {
+            insideStr.push(line[i] + line[i + 1]);
+          } else {
+            outsideStr.push(line[i] + line[i + 1]);
+          }
+        }
+      }
+    }
+    for (let str of insideStr) {
+      let reversedStr = str[1] + str[0];
+      if (outsideStr.includes(reversedStr)) {
+        return 1;
+      }
+    }
+    return 0;
   }
 
   parseInfos(raw_data) {
