@@ -6,7 +6,7 @@ let testNum = 1;
 for (let i = 0; i < sampleInputs.length; i++) {
   if (sampleInputs[i].part_two !== undefined) {
     let sample_instance = new AdventOfCode(sampleInputs[i].input);
-    let sample_part_two = sample_instance.part_two();
+    let sample_part_two = sample_instance.part_two(2, 0);
     assert.strictEqual(sample_part_two, sampleInputs[i].part_two);
     console.log(`Test ${testNum} successful`);
     testNum++;
@@ -14,5 +14,5 @@ for (let i = 0; i < sampleInputs.length; i++) {
 }
 
 let instance = new AdventOfCode(input);
-let res = instance.part_two();
+let res = instance.part_two(5, 60);
 console.log(`Part two answer: ${res}`);

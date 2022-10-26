@@ -2,6 +2,7 @@ class AdventOfCode {
   constructor(raw_data) {
     this.infos = this.parseInfos(raw_data);
     this.queue = this.getRoots(this.infos);
+    this.doing = [];
     this.finished = [];
   }
 
@@ -22,8 +23,70 @@ class AdventOfCode {
     return order;
   }
 
-  part_two() {
-    return true;
+  part_two(numWorkers, numSeconds) {
+    const workers = this.getWorkers(numWorkers);
+    const secondsMap = this.getSecondsMap(numSeconds);
+    let seconds = 0;
+    while (this.queue.length !== 0 || this.doing.length !== 0) {
+      for (let i = 1; i <= numWorkers; i++) {
+        if (workers[i].time === secondsMap[workers[i].task]) {
+          this.finished.push(workers[i].task);
+          this.doing = this.doing.filter((key) => key !== workers[i].task);
+          workers[i].task = null;
+        }
+      }
+      for (let i = 1; i <= numWorkers; i++) {
+        if (workers[i].time === secondsMap[workers[i].task]) {
+          this.finished.push(workers[i].task);
+          this.doing = this.doing.filter((key) => key !== workers[i].task);
+          workers[i].task = null;
+        }
+
+        if (workers[i].task === null) {
+          let newNode = this.getCurNode();
+          if (newNode !== null) {
+            this.doing.push(newNode.key);
+            this.queue = this.queue.filter((key) => key !== newNode.key);
+            workers[i].time = 0;
+            workers[i].task = newNode.key;
+            if (newNode.children) {
+              for (let child of newNode.children) {
+                if (
+                  !this.queue.includes(child) &&
+                  !this.finished.includes(child)
+                )
+                  this.queue.push(child);
+              }
+            }
+            this.queue.sort();
+          }
+        }
+        workers[i].time++;
+      }
+      seconds++;
+    }
+    return seconds - 1;
+  }
+
+  getWorkers(num) {
+    const workers = {};
+    for (let i = 1; i <= num; i++) {
+      workers[i] = {
+        task: null,
+        time: 0,
+      };
+    }
+    return workers;
+  }
+
+  getSecondsMap(numSeconds) {
+    const secondsMap = {};
+    let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    for (let char of alphabet) {
+      secondsMap[char] = alphabet.indexOf(char) + 1 + numSeconds;
+    }
+    secondsMap.null = Infinity;
+    return secondsMap;
   }
 
   getCurNode() {
@@ -31,6 +94,13 @@ class AdventOfCode {
       if (this.requirementsMet(node)) return this.infos[node];
     }
     throw new Error(`No nodes in queue meets all requirements : ${this.queue}`);
+  }
+
+  getCurNode() {
+    for (let node of this.queue) {
+      if (this.requirementsMet(node)) return this.infos[node];
+    }
+    return null;
   }
 
   requirementsMet(node) {

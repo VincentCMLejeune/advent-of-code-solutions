@@ -19,7 +19,7 @@ const sampleInputs = [
       .split("\n")
       .map((elem) => elem.trim()),
     part_one: "CABDFE",
-    part_two: undefined,
+    part_two: 15,
   },
 ];
 
