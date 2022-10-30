@@ -15,7 +15,14 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let unprocessedStrings = [...this.infos];
+    let processedStrings = this.infos.map((line) => JSON.stringify(line));
+    let len = 0;
+    for (let i = 0; i < this.infos.length; i++) {
+      len += processedStrings[i].length;
+      len -= unprocessedStrings[i].length;
+    }
+    return len;
   }
 
   parseInfos(raw_data) {
