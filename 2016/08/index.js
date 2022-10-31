@@ -5,7 +5,6 @@ class AdventOfCode {
   }
 
   part_one() {
-    // console.log(this.screen);
     for (let action of this.infos) {
       switch (action.action) {
         case "draw":
@@ -20,7 +19,6 @@ class AdventOfCode {
         default:
           throw new Error(`Instruction not recognised : ${action}`);
       }
-      // this.drawMap();
     }
     return this.countPixels();
   }
@@ -63,7 +61,6 @@ class AdventOfCode {
     for (let i = 0; i < range; i++) {
       curRow.pop();
     }
-    // console.log(curRow);
     for (let i = 0; i < curRow.length; i++) {
       this.screen[origin][i] = curRow[i];
     }
@@ -83,7 +80,7 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    this.part_one()
   }
 
   drawScreen() {
