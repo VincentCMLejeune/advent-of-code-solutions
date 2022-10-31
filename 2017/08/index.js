@@ -14,7 +14,14 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let max = -Infinity;
+    for (let line of this.infos) {
+      if (this.checkCondition(line.condition)) {
+        this.values[line.key] += line.dir;
+        max = Math.max(max, this.values[line.key]);
+      }
+    }
+    return max;
   }
 
   checkCondition(condition) {
