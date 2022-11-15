@@ -17,9 +17,14 @@ const sampleInputs = [
     part_two: undefined,
   },
   {
-    input: ``.split("\n").map((elem) => elem.trim()),
+    input: {
+      a: [1, 2, 3],
+      b: [1, { c: "red", b: 2 }, 3],
+      c: { d: "red", e: [1, 2, 3, 4], f: 5 },
+      d: [1, "red", 5],
+    },
     part_one: undefined,
-    part_two: undefined,
+    part_two: 16,
   },
 ];
 
