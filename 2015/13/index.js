@@ -4,6 +4,25 @@ class AdventOfCode {
     this.orders = [];
   }
 
+  part_two() {
+    this.addMyself();
+    this.permutations(Object.keys(this.happiness_map));
+    let maxHappiness = -Infinity;
+    for (let order of this.orders) {
+      let curHappiness = this.getTotalHappiness(order);
+      maxHappiness = Math.max(maxHappiness, curHappiness);
+    }
+    return maxHappiness;
+  }
+
+  addMyself() {
+    this.happiness_map["me"] = {};
+    for (let name of Object.keys(this.happiness_map)) {
+      this.happiness_map["me"][name] = 0;
+      this.happiness_map[name]["me"] = 0;
+    }
+  }
+
   part_one() {
     this.permutations(Object.keys(this.happiness_map));
     let maxHappiness = -Infinity;
