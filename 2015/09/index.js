@@ -22,7 +22,18 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let cities = [...this.cities];
+    this.permutations(cities);
+    let maxDist = -Infinity;
+    for (let path of this.paths) {
+      let curDist = 0;
+      for (let i = 0; i < path.length - 1; i++) {
+        curDist += this.distances[path[i]][path[i + 1]];
+      }
+      maxDist = Math.max(curDist, maxDist);
+    }
+
+    return maxDist;
   }
 
   permutations(arr, r = []) {
