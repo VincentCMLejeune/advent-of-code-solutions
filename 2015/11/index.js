@@ -5,16 +5,11 @@ class AdventOfCode {
 
   part_one() {
     let pass = this.currentPass;
-    console.log(pass);
     for (let i = 0; i < 1000000000; i++) {
       pass = this.increment(pass);
       if (this.isValid(pass)) return pass;
     }
     throw new Error("No solution found in 1 000 000 000 iterations");
-    // console.log(this.hasThreeIncreasing("abcdffaa"));
-    // console.log(this.hasNoMeanLetters("abcdffaa"));
-    // console.log(this.hasTwoPairs("abcdffaa"));
-    // console.log(this.isValid("abcdffaa"));
   }
 
   isValid(pass) {
@@ -45,17 +40,6 @@ class AdventOfCode {
 
   hasThreeIncreasing(pass) {
     for (let i = 0; i < pass.length - 2; i++) {
-      // console.log(
-      //   pass.charCodeAt(i),
-      //   pass.charCodeAt(i + 1),
-      //   pass.charCodeAt(i + 2)
-      // );
-      // console.log(pass[i] + pass[i + 1] + pass[i + 2]);
-      // console.log(
-      //   pass.charCodeAt(i),
-      //   pass.charCodeAt(i + 1),
-      //   pass.charCodeAt(i + 2)
-      // );
       if (
         pass.charCodeAt(i) + 1 === pass.charCodeAt(i + 1) &&
         pass.charCodeAt(i) + 2 === pass.charCodeAt(i + 2)
@@ -80,7 +64,8 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    this.currentPass = this.part_one(this.currentPass);
+    return this.part_one(this.currentPass);
   }
 
   parseInfos(raw_data) {
