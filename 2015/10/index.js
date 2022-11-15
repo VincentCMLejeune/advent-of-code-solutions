@@ -5,10 +5,8 @@ class AdventOfCode {
 
   part_one(iterations) {
     let arr = [...this.infos];
-    console.log(arr);
     for (let i = 0; i < iterations; i++) {
       arr = this.iterate(arr);
-      console.log(arr);
     }
     return arr.length;
   }
@@ -30,10 +28,6 @@ class AdventOfCode {
       newArr.push(val);
     }
     return newArr;
-  }
-
-  part_two() {
-    return true;
   }
 
   parseInfos(raw_data) {
