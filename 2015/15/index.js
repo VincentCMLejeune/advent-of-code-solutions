@@ -50,7 +50,22 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let bestScore = -Infinity;
+    for (let recipe of this.recipes) {
+      let score = this.bake500(recipe);
+      bestScore = Math.max(bestScore, score);
+    }
+    return bestScore;
+  }
+
+  bake500(recipe) {
+    let calories = this.add("calories", recipe);
+    if (calories !== 500) return 0;
+    let capacity = this.add("capacity", recipe);
+    let durability = this.add("durability", recipe);
+    let flavor = this.add("flavor", recipe);
+    let texture = this.add("texture", recipe);
+    return capacity * durability * flavor * texture;
   }
 
   parseInfos(raw_data) {
