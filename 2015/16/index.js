@@ -37,6 +37,33 @@ class AdventOfCode {
   }
 
   part_two() {
+    const validSues = [];
+    for (let sue of this.sues) {
+      if (this.isValidPartTwo(sue)) {
+        validSues.push(sue.id);
+      }
+    }
+    return validSues;
+  }
+
+  isValidPartTwo(sue) {
+    for (let key of Object.keys(this.target)) {
+      if (sue[key] !== undefined) {
+        if (key === "cats" || key === "trees") {
+          if (sue[key] <= this.target[key]) {
+            return false;
+          }
+        } else if (key === "pomeranians" || key === "goldfish") {
+          if (sue[key] >= this.target[key]) {
+            return false;
+          }
+        } else {
+          if (sue[key] !== this.target[key]) {
+            return false;
+          }
+        }
+      }
+    }
     return true;
   }
 
