@@ -30,8 +30,30 @@ class AdventOfCode {
     }
   }
 
-  part_two() {
-    return true;
+  part_two(target) {
+    let count = 0;
+    this.iterate();
+    let shortest = Infinity;
+    for (let combination of this.combinations) {
+      let sum = 0;
+      let arr = [];
+      for (let i = 0; i < combination.length; i++) {
+        if (combination[i] === true) {
+          sum += this.containers[i];
+          arr.push(this.containers[i]);
+        }
+      }
+      if (sum === target) {
+        if (arr.length <= shortest) {
+          if (arr.length < shortest) {
+            shortest = arr.length;
+            count = 0;
+          }
+          count++;
+        }
+      }
+    }
+    return count;
   }
 
   parseInfos(raw_data) {

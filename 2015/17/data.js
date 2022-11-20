@@ -17,7 +17,7 @@ const sampleInputs = [
       .split("\n")
       .map((elem) => elem.trim()),
     part_one: 4,
-    part_two: undefined,
+    part_two: 3,
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),
