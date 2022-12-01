@@ -13,7 +13,13 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let caloriesMap = this.infos.map((allCalories) =>
+      allCalories.reduce((x, y) => x + y, 0)
+    );
+    return caloriesMap
+      .sort((x, y) => x - y)
+      .slice(-3)
+      .reduce((x, y) => x + y, 0);
   }
 
   parseInfos(raw_data) {

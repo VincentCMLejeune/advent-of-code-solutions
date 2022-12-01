@@ -22,9 +22,11 @@ const sampleInputs = [
     8000
     9000
     
-    10000`.split("\n").map((elem) => elem.trim()),
-    part_one: undefined,
-    part_two: undefined,
+    10000`
+      .split("\n")
+      .map((elem) => elem.trim()),
+    part_one: 24000,
+    part_two: 45000,
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),
