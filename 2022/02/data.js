@@ -13,7 +13,7 @@ const sampleInputs = [
     B X
     C Z`.split("\n").map((elem) => elem.trim()),
     part_one: 15,
-    part_two: undefined,
+    part_two: 12,
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),

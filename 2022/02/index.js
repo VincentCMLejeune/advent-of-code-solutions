@@ -61,7 +61,47 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let score = 0;
+    for (let move of this.moves) {
+      score += this.addScorePredictedMove(move.player, move.opponent);
+    }
+    return score;
+  }
+
+  addScorePredictedMove(player, opponent) {
+    if (opponent === "A") {
+      if (player === "X") {
+        return 3;
+      } else if (player === "Y") {
+        return 4;
+      } else if (player === "Z") {
+        return 8;
+      } else {
+        throw new Error(`Could not recognise move ${player}`);
+      }
+    } else if (opponent === "B") {
+      if (player === "X") {
+        return 1;
+      } else if (player === "Y") {
+        return 5;
+      } else if (player === "Z") {
+        return 9;
+      } else {
+        throw new Error(`Could not recognise move ${player}`);
+      }
+    } else if (opponent === "C") {
+      if (player === "X") {
+        return 2;
+      } else if (player === "Y") {
+        return 6;
+      } else if (player === "Z") {
+        return 7;
+      } else {
+        throw new Error(`Could not recognise move ${player}`);
+      }
+    } else {
+      throw new Error(`Could not recognise move ${opponent}`);
+    }
   }
 
   parseInfos(raw_data) {
