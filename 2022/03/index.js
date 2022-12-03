@@ -28,7 +28,33 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let groups = this.makeGroupsOfThree(this.sacks);
+    let score = 0;
+    for (let group of groups) {
+      score += this.findBadge(group);
+    }
+    return score;
+  }
+
+  findBadge(group) {
+    for (let char of group[0]) {
+      if (group[1].includes(char) && group[2].includes(char)) {
+        return this.getScoreFromLetter(char);
+      }
+    }
+  }
+
+  makeGroupsOfThree(sacks) {
+    let groups = [];
+    let curGroup = [];
+    while (sacks.length !== 0) {
+      curGroup.push(sacks.shift());
+      if (curGroup.length === 3) {
+        groups.push(curGroup);
+        curGroup = [];
+      }
+    }
+    return groups;
   }
 
   parseInfos(raw_data) {

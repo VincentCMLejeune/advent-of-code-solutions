@@ -16,7 +16,7 @@ const sampleInputs = [
     ttgJtRGJQctTZtZT
     CrZsJsPPZsGzwwsLwLmpwMDw`.split("\n").map((elem) => elem.trim()),
     part_one: 157,
-    part_two: undefined,
+    part_two: 70,
   },
 ];
 
