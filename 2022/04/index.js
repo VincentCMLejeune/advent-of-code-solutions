@@ -19,7 +19,22 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let count = 0;
+    for (let line of this.infos) {
+      if (
+        (line.first.start >= line.second.start &&
+          line.first.start <= line.second.end) ||
+        (line.first.end >= line.second.start &&
+          line.first.end <= line.second.end) ||
+        (line.second.start >= line.first.start &&
+          line.second.start <= line.first.end) ||
+        (line.second.end >= line.first.start &&
+          line.second.end <= line.first.end)
+      ) {
+        count++;
+      }
+    }
+    return count;
   }
 
   parseInfos(raw_data) {
