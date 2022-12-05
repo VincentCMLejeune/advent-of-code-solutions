@@ -28,7 +28,21 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    for (let move of this.moves) {
+      this.moveStackTogether(move);
+    }
+    return this.getTopLetters();
+  }
+
+  moveStackTogether(move) {
+    let items_to_move = [];
+    for (let i = 0; i < move.quantity; i++) {
+      const item_to_add = this.stacks[move.from].pop();
+      items_to_move.unshift(item_to_add);
+    }
+    for (let item of items_to_move) {
+      this.stacks[move.to].push(item);
+    }
   }
 
   parseInfos(raw_data) {
