@@ -9,27 +9,27 @@ const sampleInputs = [
   {
     input: `mjqjpqmgbljsphdztnvjfqwrcgsmlb`,
     part_one: 7,
-    part_two: undefined,
+    part_two: 19,
   },
   {
     input: `bvwbjplbgvbhsrlpgdmjqwftvncz`,
     part_one: 5,
-    part_two: undefined,
+    part_two: 23,
   },
   {
     input: `nppdvjthqldpwncqszvftbrmjlhg`,
     part_one: 6,
-    part_two: undefined,
+    part_two: 23,
   },
   {
     input: `nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg`,
     part_one: 10,
-    part_two: undefined,
+    part_two: 29,
   },
   {
     input: `zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw`,
     part_one: 11,
-    part_two: undefined,
+    part_two: 26,
   },
 ];
 
