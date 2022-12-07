@@ -96,7 +96,22 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    while (this.instructions.length !== 0) {
+      let instruction = this.instructions.shift();
+      if (instruction === "$ ls") {
+        this.listFiles();
+      } else {
+        this.changeDirectory(instruction);
+      }
+    }
+    this.printTree();
+    let targetSize = this.getSize("/") - 40000000;
+    let possibleSizes = [];
+    for (let dir of this.directories) {
+      let size = this.getSize(dir.path);
+      if (size >= targetSize) possibleSizes.push(size);
+    }
+    return Math.min(...possibleSizes);
   }
 
   parseInfos(raw_data) {

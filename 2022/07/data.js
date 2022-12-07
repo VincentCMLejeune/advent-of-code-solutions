@@ -32,7 +32,7 @@ const sampleInputs = [
     5626152 d.ext
     7214296 k`.split("\n").map((elem) => elem.trim()),
     part_one: 95437,
-    part_two: undefined,
+    part_two: 24933642,
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),
