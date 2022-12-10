@@ -156,7 +156,7 @@ const sampleInputs = [
     noop
     noop`.split("\n").map((elem) => elem.trim()),
     part_one: 13140,
-    part_two: true,
+    part_two: undefined,
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),

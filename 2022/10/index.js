@@ -31,6 +31,37 @@ class AdventOfCode {
     return 0;
   }
 
+  part_two() {
+    while (this.instructions.length !== 0) {
+      let instruction = this.instructions.shift();
+      if (instruction.op === "noop") {
+        this.checkCrt();
+      } else {
+        this.checkCrt();
+        this.checkCrt();
+        this.sprite += instruction.len;
+      }
+    }
+    this.drawcrt();
+  }
+
+  checkCrt() {
+    if (Math.abs(this.pixel - this.sprite) <= 1) {
+      this.crt.push("#");
+    } else {
+      this.crt.push(".");
+    }
+    this.pixel = (this.pixel + 1) % 40;
+  }
+
+  drawcrt() {
+    for (let i = 0; i < 6; i++) {
+      const start = i * 40;
+      const end = start + 40;
+      console.log(this.crt.slice(start, end).join(""));
+    }
+  }
+
   parseInfos(raw_data) {
     return raw_data.map((line) => {
       line = line.split(" ");
