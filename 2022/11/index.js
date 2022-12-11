@@ -1,12 +1,14 @@
 class AdventOfCode {
   constructor(raw_data) {
     this.monkeys = this.parseInfos(raw_data);
+    this.supermodulo = Object.keys(this.monkeys).reduce(
+      (a, b) => a * this.monkeys[b].test.divisible,
+      1
+    );
   }
 
   part_one() {
     for (let i = 0; i <= 19; i++) {
-      // console.log(`\nRound ${i}`)
-      // console.log(this.monkeys);
       for (let monkey of Object.keys(this.monkeys)) {
         while (this.monkeys[monkey].items.length !== 0) {
           let item = this.monkeys[monkey].items.shift();
@@ -28,7 +30,9 @@ class AdventOfCode {
 
   checkItem(item, id) {
     this.monkeys[id].inspections++;
-    const opRes = Math.floor(this.checkOp(item, this.monkeys[id].op) / 3);
+    const opRes = Math.floor(
+      this.checkOp(item, this.monkeys[id].op) / Number(3)
+    );
     this.makeTest(opRes, this.monkeys[id].test);
   }
 
@@ -55,6 +59,50 @@ class AdventOfCode {
         throw new Error(`Did not recognise operation ${op}`);
       }
     }
+  }
+
+  part_two() {
+    for (let i = 1; i <= 10000; i++) {
+      const roundsToCheck = [
+        1, 20, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000,
+      ];
+      for (let monkey of Object.keys(this.monkeys)) {
+        while (this.monkeys[monkey].items.length !== 0) {
+          let item = this.monkeys[monkey].items.shift();
+          this.checkItemWithoutDividingByThree(item, monkey);
+        }
+      }
+      if (roundsToCheck.includes(i)) {
+        this.printRound(i);
+      }
+    }
+    const twoInspectiestMonkeys = Object.keys(this.monkeys)
+      .sort(
+        (monkeyA, monkeyB) =>
+          this.monkeys[monkeyB].inspections - this.monkeys[monkeyA].inspections
+      )
+      .slice(0, 2);
+    return (
+      this.monkeys[twoInspectiestMonkeys[0]].inspections *
+      this.monkeys[twoInspectiestMonkeys[1]].inspections
+    );
+  }
+
+  checkItemWithoutDividingByThree(item, id) {
+    this.monkeys[id].inspections++;
+    const opRes =
+      Number(this.checkOp(item, this.monkeys[id].op)) % this.supermodulo;
+    this.makeTest(opRes, this.monkeys[id].test);
+  }
+
+  printRound(i) {
+    console.log(`==After Round ${i}==`);
+    for (let monkey of Object.keys(this.monkeys)) {
+      console.log(
+        `Monkey ${monkey} inspected items ${this.monkeys[monkey].inspections} times.`
+      );
+    }
+    console.log("\n");
   }
 
   parseInfos(raw_data) {
