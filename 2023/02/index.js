@@ -35,7 +35,38 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let res = 0;
+    for (let game of this.games) {
+      let minima = this.getLeastPossibleRocks(game.plays);
+      res += minima.blue * minima.green * minima.red;
+    }
+    return res;
+  }
+
+  getLeastPossibleRocks(plays) {
+    let minima = {
+      blue: -Infinity,
+      green: -Infinity,
+      red: -Infinity,
+    };
+    for (let play of plays) {
+      if (play.blue) {
+        if (play.blue > minima.blue) {
+          minima.blue = play.blue;
+        }
+      }
+      if (play.green) {
+        if (play.green > minima.green) {
+          minima.green = play.green;
+        }
+      }
+      if (play.red) {
+        if (play.red > minima.red) {
+          minima.red = play.red;
+        }
+      }
+    }
+    return minima;
   }
 
   parseInfos(raw_data) {
