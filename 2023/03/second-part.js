@@ -16,6 +16,3 @@ for (let i = 0; i < sampleInputs.length; i++) {
 let instance = new AdventOfCode(input);
 let res = instance.part_two();
 console.log(`Part two answer: ${res}`);
-
-
-// 78634465 TOO LOW
