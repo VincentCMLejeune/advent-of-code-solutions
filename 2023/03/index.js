@@ -17,35 +17,21 @@ class AdventOfCode {
     for (let i = num.y - 1; i <= num.y + num.digits; i++) {
       if (this.infos.symbols[num.x - 1]) {
         if (this.infos.symbols[num.x - 1][i]) {
-          console.log(`${this.infos.symbols[num.x - 1][i]} up to ${num.value}`);
           return true;
         }
       }
     }
-
     if (this.infos.symbols[num.x]) {
       if (this.infos.symbols[num.x][num.y - 1]) {
-        console.log(
-          `${this.infos.symbols[num.x][num.y - 1]} left to ${num.value}`
-        );
         return true;
       }
       if (this.infos.symbols[num.x][num.y + num.digits]) {
-        console.log(
-          `${this.infos.symbols[num.x][num.y + num.digits]} right to ${
-            num.value
-          }`
-        );
         return true;
       }
     }
-
     for (let i = num.y - 1; i <= num.y + num.digits; i++) {
       if (this.infos.symbols[num.x + 1]) {
         if (this.infos.symbols[num.x + 1][i]) {
-          console.log(
-            `${this.infos.symbols[num.x + 1][i]} down to ${num.value}`
-          );
           return true;
         }
       }
@@ -54,7 +40,50 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let gears = {};
+    for (let num of this.infos.numbers) {
+      let foundGear = this.hasNeighboringGear(num);
+      if (foundGear) {
+        if (gears[foundGear]) {
+          gears[foundGear].push(num.value);
+        } else {
+          gears[foundGear] = [num.value];
+        }
+      }
+    }
+    let res = 0;
+    for (let gear of Object.keys(gears)) {
+      if (gears[gear].length === 2) {
+        res += gears[gear][0] * gears[gear][1];
+      }
+    }
+    return res;
+  }
+
+  hasNeighboringGear(num) {
+    for (let i = num.y - 1; i <= num.y + num.digits; i++) {
+      if (this.infos.symbols[num.x - 1]) {
+        if (this.infos.symbols[num.x - 1][i]) {
+          return num.x - 1 + ":" + String(i);
+        }
+      }
+    }
+    if (this.infos.symbols[num.x]) {
+      if (this.infos.symbols[num.x][num.y - 1]) {
+        return num.x + ":" + String(num.y - 1);
+      }
+      if (this.infos.symbols[num.x][num.y + num.digits]) {
+        return num.x + ":" + String(num.y + num.digits);
+      }
+    }
+    for (let i = num.y - 1; i <= num.y + num.digits; i++) {
+      if (this.infos.symbols[num.x + 1]) {
+        if (this.infos.symbols[num.x + 1][i]) {
+          return num.x + 1 + ":" + String(i);
+        }
+      }
+    }
+    return false;
   }
 
   isDigit(char) {
