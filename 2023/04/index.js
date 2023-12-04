@@ -20,7 +20,24 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let cardsCount = this.cards.map(() => 1);
+    for (let index = 1; index <= cardsCount.length; index++) {
+      let card = this.cards[index - 1];
+      let count = cardsCount[index - 1];
+      let matches = 0;
+      for (let pickedNumber of card.pickedNumbers) {
+        if (card.winningNumbers.includes(pickedNumber)) {
+          matches++;
+        }
+      }
+      let j = index;
+      while (matches > 0 && j < cardsCount.length) {
+        cardsCount[j] += count;
+        j++;
+        matches--;
+      }
+    }
+    return cardsCount.reduce((x, y) => x + y, 0);
   }
 
   parseInfos(raw_data) {

@@ -16,7 +16,7 @@ const sampleInputs = [
     Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
     Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11`.split("\n").map((elem) => elem.trim()),
     part_one: 13,
-    part_two: undefined,
+    part_two: 30,
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),
