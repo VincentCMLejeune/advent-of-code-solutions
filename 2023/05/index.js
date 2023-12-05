@@ -37,7 +37,44 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    const orderList = [
+      "soil",
+      "fertilizer",
+      "water",
+      "light",
+      "temperature",
+      "humidity",
+      "location",
+    ];
+    let minLocation = Infinity;
+    let seedRanges = this.getSeedRanges();
+    for (let seedRange of seedRanges) {
+      for (let i = seedRange[0]; i < seedRange[1]; i++) {
+        let value = i;
+        for (let order of orderList) {
+          let usedMap = this.almanac.maps.filter(
+            (elem) => elem.to === order
+          )[0];
+          value = this.processSeed(value, usedMap.maps);
+        }
+        if (value < minLocation) {
+          minLocation = value;
+        }
+      }
+    }
+    return minLocation;
+  }
+
+  getSeedRanges() {
+    let unsortedSeedRanges = [];
+    // console.log(this.almanac.seeds);
+    for (let i = 0; i < this.almanac.seeds.length; i += 2) {
+      unsortedSeedRanges.push([
+        this.almanac.seeds[i],
+        this.almanac.seeds[i] + this.almanac.seeds[i + 1],
+      ]);
+    }
+    return unsortedSeedRanges.sort((x, y) => x[0] - y[0]);
   }
 
   parseInfos(raw_data) {
