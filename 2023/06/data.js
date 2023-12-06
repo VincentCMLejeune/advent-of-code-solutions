@@ -12,7 +12,7 @@ const sampleInputs = [
     input: `Time:      7  15   30
     Distance:  9  40  200`.split("\n").map((elem) => elem.trim()),
     part_one: 288,
-    part_two: undefined,
+    part_two: 71503,
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),

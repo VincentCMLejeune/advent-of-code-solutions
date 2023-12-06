@@ -39,7 +39,17 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let time = "";
+    let distance = "";
+    for (let race of this.races) {
+      time += race.time;
+      distance += race.distance;
+    }
+    time = Number(time);
+    distance = Number(distance);
+    let firstWinningValue = this.getFirstWinningValue(time, distance);
+    let lastWinningValue = this.getLastWinningValue(time, distance);
+    return lastWinningValue - firstWinningValue + 1;
   }
 
   parseInfos(raw_data) {
