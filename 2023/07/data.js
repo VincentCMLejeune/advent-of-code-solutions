@@ -15,7 +15,7 @@ const sampleInputs = [
     KTJJT 220
     QQQJA 483`.split("\n").map((elem) => elem.trim()),
     part_one: 6440,
-    part_two: undefined,
+    part_two: 5905,
   },
   {
     input: ``.split("\n").map((elem) => elem.trim()),
