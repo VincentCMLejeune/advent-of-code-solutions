@@ -31,13 +31,18 @@ const sampleInputs = [
     part_two: undefined,
   },
   {
-    input: `LLR
+    input: `LR
 
-    AAA = (BBB, BBB)
-    BBB = (AAA, ZZZ)
-    ZZZ = (ZZZ, ZZZ)`.split("\n").map((elem) => elem.trim()),
-    part_one: 6,
-    part_two: undefined,
+    11A = (11B, XXX)
+    11B = (XXX, 11Z)
+    11Z = (11B, XXX)
+    22A = (22B, XXX)
+    22B = (22C, 22C)
+    22C = (22Z, 22Z)
+    22Z = (22B, 22B)
+    XXX = (XXX, XXX)`.split("\n").map((elem) => elem.trim()),
+    part_one: undefined,
+    part_two: 6,
   },
 ];
 
