@@ -31,7 +31,21 @@ class AdventOfCode {
   }
 
   part_two() {
-    return true;
+    let res = 0;
+    for (let history of this.histories) {
+      let predictions = this.addPredictions(history);
+      let historyValue = this.getExtrapolatedBackwards(predictions);
+      res += historyValue;
+    }
+    return res;
+  }
+
+  getExtrapolatedBackwards(predictions) {
+    let nums = predictions.map((prediction) => prediction[0]);
+    for (let i = nums.length - 2; i >= 0; i--) {
+      nums[i] = nums[i] - nums[i + 1];
+    }
+    return nums[0];
   }
 
   parseInfos(raw_data) {
