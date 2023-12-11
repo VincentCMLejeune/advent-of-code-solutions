@@ -11,8 +11,56 @@ class AdventOfCode {
     return this.countLights(lights);
   }
 
-  part_two() {
-    return true;
+  part_two(steps) {
+    let lights = this.lights
+    let rowLength = lights[0].length;
+    lights[0].pop();
+    lights[0].shift();
+    lights[0].unshift("#");
+    lights[0].push("#");
+    lights[rowLength - 1].pop();
+    lights[rowLength - 1].shift();
+    lights[rowLength - 1].unshift("#");
+    lights[rowLength - 1].push("#");
+    lights = this.circleLights(lights);
+    for (let i = 0; i < steps; i++) {
+      lights = this.updateLightsWithSomeLightsStuckOn(lights);
+    }
+    return this.countLights(lights);
+  }
+
+  updateLightsWithSomeLightsStuckOn(lights) {
+    let newLights = [];
+    for (let i = 1; i < lights.length - 1; i++) {
+      let row = [];
+      for (let j = 1; j < lights[i].length - 1; j++) {
+        let neighbors = this.countNeighboringLights(i, j, lights);
+        if (lights[i][j] === "#") {
+          if (neighbors === 2 || neighbors === 3) {
+            row.push("#");
+          } else {
+            row.push(".");
+          }
+        } else {
+          if (neighbors === 3) {
+            row.push("#");
+          } else {
+            row.push(".");
+          }
+        }
+      }
+      newLights.push(row);
+    }
+    let rowLength = newLights[0].length;
+    newLights[0].pop();
+    newLights[0].shift();
+    newLights[0].unshift("#");
+    newLights[0].push("#");
+    newLights[rowLength - 1].pop();
+    newLights[rowLength - 1].shift();
+    newLights[rowLength - 1].unshift("#");
+    newLights[rowLength - 1].push("#");
+    return this.circleLights(newLights);
   }
 
   updateLights(lights) {
